@@ -1,5 +1,4 @@
 class MyCircularQueue {
-    
     int[] data;
     int front;
     int size;
@@ -11,45 +10,47 @@ class MyCircularQueue {
     }
     
     public boolean enQueue(int value) {
-        boolean flag = false;
+        boolean flag;
         if (size == data.length) {
-            return false;
+            flag = false;
         } else {
-        int rear = (front + size) % data.length;
-        data[rear] = value;
-        size++;
-        flag = true;
+            int rear = (front + size ) % data.length;
+            data[rear] = value;
+            size++;
+            flag = true;
         }
         return flag;
     }
     
     public boolean deQueue() {
-        boolean flag = false;
+        boolean flag;
         if (size == 0) {
-            return false;
+            flag = false;
         } else {
             int val = data[front];
-            front = (front+1)%data.length;
+            front = (front + 1)%data.length;
             size--;
             flag = true;
         }
+        
         return flag;
     }
     
     public int Front() {
         if (size == 0) {
             return -1;
+        } else {
+            return data[front];
         }
-        return data[front];
     }
     
     public int Rear() {
         if (size == 0) {
             return -1;
+        } else {
+            int rear = (front + size - 1) % data.length;
+            return data[rear];
         }
-        int rear = (front + size - 1) % data.length;
-        return data[rear];
-        // return data[(front + size) % data.length];
     }
     
     public boolean isEmpty() {
