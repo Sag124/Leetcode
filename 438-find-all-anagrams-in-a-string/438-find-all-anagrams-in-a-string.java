@@ -1,14 +1,5 @@
 class Solution {
     
-//     public boolean compare(HashMap<Character, Integer> smap, HashMap<Character, Integer> pmap) {
-//         for (Character sch : smap.keySet()) {
-//             if (pmap.getOrDefault(sch, 0) != smap.get(sch)) {
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
-    
     private static boolean isAnagrams(int[] pfq, int[] sfq) {
 		for (int i = 0; i < 26; i++) {
 			if (pfq[i] != sfq[i]) {
@@ -49,10 +40,6 @@ class Solution {
 			start++;
 		}
 		
-        // System.out.println(ans.size());
-        // for(int a : ans){
-        //     System.out.print(a + " ");
-        // }
         return res;
         
     }
