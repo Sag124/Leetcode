@@ -7,21 +7,21 @@ class Solution {
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
             }
             if (gmap.containsKey(map)) {
-                List<String> res = gmap.get(map);
-                res.add(str);
-                gmap.put(map, res);
+                List<String> list = gmap.get(map);
+                list.add(str);
+                gmap.put(map, list);
             } else {
-                List<String> res = new ArrayList<>();
-                res.add(str);
-                gmap.put(map, res);
+                List<String> list = new ArrayList<>();
+                list.add(str);
+                gmap.put(map, list);
             }
         }
         
-        List<List<String>> result = new ArrayList<>();
+        List<List<String>> res = new ArrayList<>();
         for (HashMap<Character, Integer> map : gmap.keySet()) {
-            List<String> res = gmap.get(map);
-            result.add(res);
+            List<String> li = gmap.get(map);
+            res.add(li);
         }
-        return result;
+        return res;
     }
 }
