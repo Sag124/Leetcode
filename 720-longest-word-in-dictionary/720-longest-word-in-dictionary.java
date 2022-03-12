@@ -48,12 +48,9 @@ class Solution {
         for (int i = 0; i < 26; i++) {
             if (cur.children[i] != null) {
                 Node child = cur.children[i];
-                // if (child.isEnd == false) {
-                //     continue;
-                // } else {
-                //     dfs(child, psf + (char)(i + 'a'));
-                // }
-                if (child.isEnd == true) dfs(child, psf + (char)(i + 'a'));
+                if (child.isEnd == true) {
+                  dfs(child, psf + (char)(i + 'a'));  
+                } 
             }
         }
         
