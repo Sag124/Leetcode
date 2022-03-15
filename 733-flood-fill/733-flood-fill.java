@@ -1,16 +1,31 @@
 class Solution {
+    
+    int[][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+    
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        int color = image[sr][sc];
-        if (color != newColor) dfs(image, sr, sc, color, newColor);
-        return image;
-    }
-    public void dfs(int[][] image, int r, int c, int color, int newColor) {
-        if (image[r][c] == color) {
-            image[r][c] = newColor;
-            if (r >= 1) dfs(image, r - 1, c, color, newColor);
-            if (c >= 1) dfs(image, r, c - 1, color, newColor);
-            if (r < image.length - 1) dfs(image, r + 1, c, color, newColor);
-            if (c < image[0].length - 1) dfs(image, r, c+1, color, newColor);
+        int startColor = image[sr][sc];
+        if (startColor == newColor) return image;
+        image[sr][sc] = newColor;
+        Queue<int[]> queue = new LinkedList<>();
+        
+        queue.offer(new int[]{sr, sc});
+        
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < queue.size(); i++) {
+                int[] rem = queue.poll();
+                for (int[] dir : dirs) {
+                    int r = rem[0] + dir[0];
+                    int c = rem[1] + dir[1];
+                    if (r >= 0 && c >= 0 && r < image.length && c < image[0].length && image[r][c] == startColor) {
+                        queue.offer(new int[]{r, c});
+                        image[r][c] = newColor;
+                        
+                    }
+                }
+            }
         }
+        
+        return image;
+        
     }
 }
