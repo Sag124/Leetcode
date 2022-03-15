@@ -18,8 +18,7 @@ class Solution {
                     int c = rem[1] + dir[1];
                     if (r >= 0 && c >= 0 && r < image.length && c < image[0].length && image[r][c] == startColor) {
                         queue.offer(new int[]{r, c});
-                        image[r][c] = newColor;
-                        
+                        image[r][c] = newColor;               
                     }
                 }
             }
