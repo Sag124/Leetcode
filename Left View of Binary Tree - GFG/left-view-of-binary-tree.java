@@ -127,22 +127,18 @@ class Tree
       // Your code here
       ArrayList<Integer> res = new ArrayList<>();
       if (root == null) return res;
-      Queue<Node> queue = new LinkedList<>();
-      queue.offer(root);
-      
-      while (!queue.isEmpty()) {
-          int size = queue.size();
-          for (int i = 0; i < size; i++) {
-              Node rem = queue.poll();
-              if (i == 0) res.add(rem.data);
-              if (rem.left != null) {
-                  queue.offer(rem.left);
-              }
-              if (rem.right != null) {
-                  queue.offer(rem.right);
-              }
-          }
-      }
+      helper(root, 0, res);
       return res;
+    }
+    
+    public void helper(Node node, int level, ArrayList<Integer> res) {
+        if (node == null) return;
+        
+        if (res.size() == level) {
+            res.add(node.data);
+        }
+        
+        helper(node.left, level + 1, res);
+        helper(node.right, level + 1, res);
     }
 }
