@@ -1,10 +1,10 @@
 class LRUCache {
     
-    static class Node {
-        int key;
-        int value;
+    class Node {
         Node prev;
         Node next;
+        int key;
+        int value;
         
         Node() {
             
@@ -17,12 +17,15 @@ class LRUCache {
         }
     }
     
+    // DLL
     Node head = null;
     Node tail = null;
-    HashMap<Integer, Node> map;
     int size = 0;
+    
+    // HashMap
+    HashMap<Integer, Node> map;
     int cap = 0;
-
+    
     public LRUCache(int capacity) {
         cap = capacity;
         map = new HashMap<>();
@@ -45,16 +48,15 @@ class LRUCache {
             n.value = value;
             remove(n);
             addLast(n);
+        
         } else {
             Node n = new Node(key, value);
             addLast(n);
             map.put(key, n);
-            
             if (size > cap) {
                 int rk = head.key;
                 removeFirst();
                 map.remove(rk);
-                
             }
         }
     }
@@ -62,61 +64,53 @@ class LRUCache {
     private void removeFirst() {
         if (size == 0) {
             return;
-        }
-        else if (size == 1) {
+        } else if (size == 1) {
             head = tail = null;
         } else {
-            head = head.next;
-            head.prev = null;
+            head = head.next;    
         }
+        
         size--;
     }
     
-    private void addLast(Node n) {
+     private void removeLast() {
         if (size == 0) {
-            head = tail = n;
+            return;
+        } else if (size == 1) {
+            head = tail = null;
         } else {
-            tail.next = n;
-            n.prev = tail;
-            tail = n;
+            tail = tail.prev;    
+        }
+        
+        size--;
+    }
+    
+    private void addLast(Node nn) {
+        if (size == 0) {
+            head = tail = nn;
+        } else {
+            tail.next = nn;
+            nn.prev = tail;
+            tail = nn;
         }
         size++;
     }
     
-    private void removeLast() {
+    private void remove(Node n) {
         if (size == 0) {
             return;
-        }
-        else if (size == 1) {
-            head = tail = null;
-        } else {
-            Node tp = tail.prev;
-            tp.next = null;
-            tail.prev = null;
-            tail = tp;
-        }
-        size--;
-    }
-    
-    private void remove(Node c) {
-        if(size == 0) {
-            return;
-        }
-        else if(c == head) {
+        } else if (n == head) {
             removeFirst();
-        }
-        else if(c == tail) {
+        } else if (n == tail) {
             removeLast();
         }
         else {
-            Node p = c.prev;
-            Node n = c.next;
-
-            p.next = n;
-            n.prev = p;
-
-            c.next = c.prev = null;
-
+            Node prev = n.prev;
+            Node next = n.next;
+            prev.next = next;
+            next.prev = prev;
+            n.next = null;
+            n.prev = null;
             size--;
         }
     }
